@@ -1,10 +1,10 @@
-Beroux-Builder
+Beroux-Builder [![](https://images.microbadger.com/badges/image/wernight/beroux-builder.svg)](http://microbadger.com/images/wernight/beroux-builder "Get your own image badge on microbadger.com")
 ==============
 
 Bundle with almost minimal set of utilities to run builds for all projects:
 
   * `docker`
-  * `docker-compose
+  * `docker-compose`
   * `kubectl`
   * `envsubst`
 
