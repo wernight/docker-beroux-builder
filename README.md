@@ -8,6 +8,9 @@ Bundle with almost minimal set of utilities to build Docker images and deploy th
   * `kubectl`
   * `envsubst`
 
+Also automatically creates a `kubectl` context using the service account
+if it detects there is one.
+
 
 Usage
 -----

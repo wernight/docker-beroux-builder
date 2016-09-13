@@ -43,3 +43,6 @@ RUN set -x && \
 
 # Default directory
 WORKDIR /code
+
+COPY beroux-entrypoint.sh /usr/local/bin/
+ENTRYPOINT ["beroux-entrypoint.sh"]
