@@ -9,8 +9,7 @@ RUN set -x && \
     curl -Lo /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
     curl -Lo glibc.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-$GLIBC_VERSION.apk && \
     curl -Lo glibc-bin.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-bin-$GLIBC_VERSION.apk && \
-    apk update && \
-    apk add glibc.apk glibc-bin.apk && \
+    apk add --no-cache glibc.apk glibc-bin.apk && \
     rm -rf /var/cache/apk/* glibc.apk glibkc-bin.apk && \
     \
     # Clean-up
