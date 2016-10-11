@@ -7,10 +7,10 @@ RUN set -x && \
     # See also https://github.com/gliderlabs/docker-alpine/issues/11
     GLIBC_VERSION='2.23-r3' && \
     curl -Lo /etc/apk/keys/sgerrand.rsa.pub https://raw.githubusercontent.com/sgerrand/alpine-pkg-glibc/master/sgerrand.rsa.pub && \
-    curl -Lo glibc.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-$GLIBC_VERSION.apk && \
-    curl -Lo glibc-bin.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-bin-$GLIBC_VERSION.apk && \
-    apk add --no-cache glibc.apk glibc-bin.apk && \
-    rm glibc.apk glibkc-bin.apk && \
+    curl -Lo /tmp/glibc.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-$GLIBC_VERSION.apk && \
+    curl -Lo /tmp/glibc-bin.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/$GLIBC_VERSION/glibc-bin-$GLIBC_VERSION.apk && \
+    apk add --no-cache /tmp/glibc.apk /tmp/glibc-bin.apk && \
+    rm /tmp/glibc.apk /tmp/glibc-bin.apk && \
     \
     # Clean-up
     apk del .deps
