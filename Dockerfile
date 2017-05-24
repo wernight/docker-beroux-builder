@@ -27,9 +27,8 @@ RUN set -x && \
     docker-compose version && \
     \
     # Install kubectl
-    # Note: Latest version may be found on:
-    # https://aur.archlinux.org/packages/kubectl-bin/
-    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.3.6/bin/linux/amd64/kubectl && \
+    # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
+    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
     chmod a+rx /usr/local/bin/kubectl && \
     kubectl version --client && \
     \
