@@ -1,3 +1,8 @@
+# Supported tags and respective `Dockerfile` links
+
+  * `latest` latest stable release
+  * `1`, `1.8`, `1.8.0` (or similar) are like `latest` but for a specific version of Kubernetes (kubectl).
+
 Beroux-Builder [![](https://images.microbadger.com/badges/image/wernight/beroux-builder.svg)](http://microbadger.com/images/wernight/beroux-builder "Get your own image badge on microbadger.com")
 ==============
 
@@ -12,15 +17,14 @@ Also automatically creates a `kubectl` context using the service account
 if it detects there is one.
 
 
-Usage
------
+# Usage
 
 You should provide a Docker daemon either:
   - Link a `docker` host pointing to `docker:dind`, or
   - Mount host Docker socket `/var/run/docker.sock`, or
   - Set `DOCKER_HOST` to where this container can reach a Docker daemon.
 
-### Example for GitLab CI
+## Example for GitLab CI
 
 For example you can run GitLab CI with a `.gitlab-ci.yml` like:
 
