@@ -19,16 +19,14 @@ RUN set -x && \
     apk add --no-cache -t .deps ca-certificates curl && \
     # Install docker-compose
     # https://docs.docker.com/compose/install/
-    DOCKER_COMPOSE_URL=https://github.com$(curl -L https://github.com/docker/compose/releases/latest \
-        | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
-        | sed 's/^href="//') && \
+    DOCKER_COMPOSE_URL='https://github.com/docker/compose/releases/download/1.16.1/docker-compose-Linux-x86_64' && \
     curl -Lo /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
     chmod a+rx /usr/local/bin/docker-compose && \
     docker-compose version && \
     \
     # Install kubectl
     # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
-    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
+    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/v1.7.1/bin/linux/amd64/kubectl && \
     chmod a+rx /usr/local/bin/kubectl && \
     kubectl version --client && \
     \
