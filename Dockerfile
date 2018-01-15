@@ -1,9 +1,9 @@
 FROM docker
 
-RUN apk add --no-cache ca-certificates
+# Install TLS certificats, and curl (always useful).
+RUN apk add --no-cache ca-certificates curl
 
 RUN set -x && \
-    apk add --no-cache -t .deps curl && \
     # Install glibc on Alpine (required by docker-compose) from
     # https://github.com/sgerrand/alpine-pkg-glibc
     # See also https://github.com/gliderlabs/docker-alpine/issues/11
