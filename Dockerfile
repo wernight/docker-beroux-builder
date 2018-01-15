@@ -33,11 +33,14 @@ RUN set -x && \
     # (at least until we have https://github.com/kubernetes/kubernetes/issues/23896 )
     apk add --no-cache gettext && \
     \
-    # Clean-up
-    apk del .deps && \
+    # Install Helm client (better replacement to envsubst).
+    apk add --no-cache -t .deps openssl && \
+    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | sh - && \
+    apk del --purge .deps && \
     \
     # Verify
-    kubectl version --client
+    kubectl version --client && \
+    helm version --client
 
 # Default directory
 WORKDIR /code
