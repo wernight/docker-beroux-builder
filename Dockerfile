@@ -18,7 +18,8 @@ RUN set -x && \
     # https://docs.docker.com/compose/install/
     DOCKER_COMPOSE_URL=https://github.com$(curl -L https://github.com/docker/compose/releases/latest \
         | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
-        | sed 's/^href="//') && \
+        | sed 's/^href="//' \
+        | head -n1) && \
     curl -Lo /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
     chmod a+rx /usr/local/bin/docker-compose && \
     docker-compose version && \
