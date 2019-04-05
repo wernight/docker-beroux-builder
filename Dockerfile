@@ -1,7 +1,7 @@
 FROM docker
 
 # Install TLS certificats, and curl (always useful).
-RUN apk add --no-cache ca-certificates curl zlib
+RUN apk add --no-cache ca-certificates curl zlib libgcc
 
 RUN set -x && \
     # Install glibc on Alpine (required by docker-compose) from
@@ -13,7 +13,7 @@ RUN set -x && \
     rm /tmp/glibc.apk
 
 # Required for docker-compose to find zlib.
-ENV LD_LIBRARY_PATH=/lib
+ENV LD_LIBRARY_PATH=/lib:/usr/lib
 
 RUN set -x && \
     # Install docker-compose
