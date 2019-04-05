@@ -15,34 +15,42 @@ RUN set -x && \
 # Required for docker-compose to find zlib.
 ENV LD_LIBRARY_PATH=/lib:/usr/lib
 
+# Install docker-compose
+# https://docs.docker.com/compose/install/
 RUN set -x && \
-    # Install docker-compose
-    # https://docs.docker.com/compose/install/
-    DOCKER_COMPOSE_URL=https://github.com$(wget -q -O- https://github.com/docker/compose/releases/latest \
-        | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
-        | sed 's/^href="//' \
-        | head -n1) && \
+    #DOCKER_COMPOSE_URL=https://github.com$(wget -q -O- https://github.com/docker/compose/releases/latest \
+    #    | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
+    #    | sed 's/^href="//' \
+    #    | head -n1) && \
+    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64" && \
     wget -O /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
     chmod a+rx /usr/local/bin/docker-compose && \
     docker-compose version
 
+# Install kubectl
+# https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
 RUN set -x && \
-    # Install kubectl
-    # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
-    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl && \
+    #KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt) && \
+    KUBECTL_VERSION=v1.14.0 && \
+    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod a+rx /usr/local/bin/kubectl && \
-    \
-    # Install envsubst (part of gettext package).
-    # (at least until we have https://github.com/kubernetes/kubernetes/issues/23896 )
-    apk add --no-cache gettext && \
-    \
-    # Install Helm client (better replacement to envsubst).
-    apk add --no-cache -t .deps openssl && \
-    curl https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get | sh - && \
+    kubectl version --client
+
+# Install envsubst (part of gettext package).
+# (at least until we have https://github.com/kubernetes/kubernetes/issues/23896 )
+RUN set -x && \
+    apk add --no-cache gettext
+
+# Install Helm client (better replacement to envsubst).
+# https://github.com/helm/helm/releases
+RUN set -x && \
+    apk add --no-cache -t .deps openssl bash && \
+    wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get && \
+    chmod +x get && \
+    ./get --version v2.13.1 && \
+    rm get && \
     apk del --purge .deps && \
-    \
     # Verify
-    kubectl version --client && \
     helm version --client
 
 # Default directory
