@@ -53,8 +53,12 @@ RUN set -x && \
     # Verify
     helm version --client
 
+# Sets default path
+# See https://gitlab.com/gitlab-org/gitlab-runner/issues/4684
+ENV PATH="${PATH:-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}"
+
 # Default directory
 WORKDIR /code
 
 COPY beroux-entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["beroux-entrypoint.sh"]
+ENTRYPOINT ["/usr/sh", "-e", "/usr/local/bin/beroux-entrypoint.sh"]
