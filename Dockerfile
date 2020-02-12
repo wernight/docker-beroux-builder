@@ -22,7 +22,7 @@ RUN set -x && \
     #    | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
     #    | sed 's/^href="//' \
     #    | head -n1) && \
-    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/1.24.0/docker-compose-Linux-x86_64" && \
+    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64" && \
     wget -O /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
     chmod a+rx /usr/local/bin/docker-compose && \
     docker-compose version
@@ -31,7 +31,7 @@ RUN set -x && \
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
 RUN set -x && \
     #KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt) && \
-    KUBECTL_VERSION=v1.14.0 && \
+    KUBECTL_VERSION=v1.17.3 && \
     curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod a+rx /usr/local/bin/kubectl && \
     kubectl version --client
@@ -47,7 +47,7 @@ RUN set -x && \
     apk add --no-cache -t .deps openssl bash && \
     wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get && \
     chmod +x get && \
-    ./get --version v2.13.1 && \
+    ./get --version v3.0.3 && \
     rm get && \
     apk del --purge .deps && \
     # Verify
