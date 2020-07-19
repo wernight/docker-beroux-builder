@@ -1,5 +1,12 @@
 FROM docker
 
+# https://github.com/sgerrand/alpine-pkg-glibc
+ARG ALPINE_GLIBC_VERSION=2.31-r0
+# https://github.com/docker/compose/releases/latest
+ARG DOCKER_COMPOSE_VERSION=1.26.2
+# https://storage.googleapis.com/kubernetes-release/release/stable.txt
+ARG KUBECTL_VERSION=v1.18.6
+
 # Install TLS certificats, and curl (always useful).
 RUN apk add --no-cache ca-certificates curl zlib libgcc
 
@@ -8,7 +15,7 @@ RUN set -x && \
     # https://github.com/sgerrand/alpine-pkg-glibc
     # See also https://github.com/gliderlabs/docker-alpine/issues/11
     curl -Lo /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    curl -Lo /tmp/glibc.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.29-r0/glibc-2.29-r0.apk && \
+    curl -Lo /tmp/glibc.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-${ALPINE_GLIBC_VERSION}.apk && \
     apk add --no-cache /tmp/glibc.apk && \
     rm /tmp/glibc.apk
 
@@ -22,7 +29,7 @@ RUN set -x && \
     #    | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
     #    | sed 's/^href="//' \
     #    | head -n1) && \
-    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/1.25.4/docker-compose-Linux-x86_64" && \
+    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64" && \
     wget -O /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
     chmod a+rx /usr/local/bin/docker-compose && \
     docker-compose version
@@ -30,8 +37,6 @@ RUN set -x && \
 # Install kubectl
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
 RUN set -x && \
-    #KUBECTL_VERSION=$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt) && \
-    KUBECTL_VERSION=v1.17.3 && \
     curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
     chmod a+rx /usr/local/bin/kubectl && \
     kubectl version --client
