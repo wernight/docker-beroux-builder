@@ -1,11 +1,13 @@
 FROM docker
 
 # https://github.com/sgerrand/alpine-pkg-glibc
-ARG ALPINE_GLIBC_VERSION=2.31-r0
+ARG ALPINE_GLIBC_VERSION=2.32-r0
 # https://github.com/docker/compose/releases/latest
-ARG DOCKER_COMPOSE_VERSION=1.26.2
+ARG DOCKER_COMPOSE_VERSION=1.27.4
 # https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ARG KUBECTL_VERSION=v1.18.6
+ARG KUBECTL_VERSION=v1.20.1
+# https://github.com/helm/helm/releases
+ARG HELM_VERSION=v3.4.2
 
 # Install TLS certificats, and curl (always useful).
 RUN apk add --no-cache ca-certificates curl zlib libgcc
@@ -52,7 +54,7 @@ RUN set -x && \
     apk add --no-cache -t .deps openssl bash && \
     wget https://raw.githubusercontent.com/kubernetes/helm/master/scripts/get && \
     chmod +x get && \
-    ./get --version v3.0.3 && \
+    ./get --version $HELM_VERSION && \
     rm get && \
     apk del --purge .deps && \
     # Verify
