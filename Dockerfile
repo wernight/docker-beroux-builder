@@ -3,9 +3,9 @@ FROM docker
 # https://github.com/sgerrand/alpine-pkg-glibc
 ARG ALPINE_GLIBC_VERSION=2.32-r0
 # https://github.com/docker/compose/releases/latest
-ARG DOCKER_COMPOSE_VERSION=1.27.4
-# https://storage.googleapis.com/kubernetes-release/release/stable.txt
-ARG KUBECTL_VERSION=v1.20.1
+ARG DOCKER_COMPOSE_VERSION=1.28.0
+# https://dl.k8s.io/release/stable.txt
+ARG KUBECTL_VERSION=v1.20.2
 # https://github.com/helm/helm/releases
 ARG HELM_VERSION=v3.4.2
 
@@ -39,7 +39,7 @@ RUN set -x && \
 # Install kubectl
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
 RUN set -x && \
-    curl -Lo /usr/local/bin/kubectl https://storage.googleapis.com/kubernetes-release/release/$KUBECTL_VERSION/bin/linux/amd64/kubectl && \
+    curl -Lo /usr/local/bin/kubectl https://dl.k8s.io/release/${KUBECTL_VERSION}/bin/linux/amd64/kubectl && \
     chmod a+rx /usr/local/bin/kubectl && \
     kubectl version --client
 
