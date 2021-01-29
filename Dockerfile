@@ -3,11 +3,11 @@ FROM docker
 # https://github.com/sgerrand/alpine-pkg-glibc
 ARG ALPINE_GLIBC_VERSION=2.32-r0
 # https://github.com/docker/compose/releases/latest
-ARG DOCKER_COMPOSE_VERSION=1.28.0
+ARG DOCKER_COMPOSE_VERSION=1.28.2
 # https://dl.k8s.io/release/stable.txt
 ARG KUBECTL_VERSION=v1.20.2
 # https://github.com/helm/helm/releases
-ARG HELM_VERSION=v3.4.2
+ARG HELM_VERSION=v3.5.1
 
 # Install TLS certificats, and curl (always useful).
 RUN apk add --no-cache ca-certificates curl zlib libgcc
