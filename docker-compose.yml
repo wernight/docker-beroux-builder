@@ -1,0 +1,7 @@
+version: '3'
+
+services:
+  latest:
+    image: wernight/beroux-builder:latest
+    build:
+      context: .
