@@ -3,7 +3,7 @@
   * `latest` latest stable release
   * `1`, `1.8`, `1.8.0` (or similar) are like `latest` but for a specific version of Kubernetes (kubectl).
 
-Beroux-Builder [![](https://images.microbadger.com/badges/image/wernight/beroux-builder.svg)](http://microbadger.com/images/wernight/beroux-builder "Get your own image badge on microbadger.com")
+Beroux-Builder
 ==============
 
 Bundle with almost minimal set of utilities to build Docker images and deploy them on Kubernetes:
@@ -48,3 +48,8 @@ For this to work, you need:
    - `gitlab-ci-multi-runner` set up in *Docker* mode with:
        - Environment variable `DOCKER_REGISTRY_TOKEN` set to access your Docker Registry (if private).
        - Kubernetes service account mounted (`/var/run/secrets/kubernetes.io/serviceaccount/`).
+
+# Pushing new releases
+
+    docker build -t wernight/beroux-builder .
+    docker push wernight/beroux-builder
