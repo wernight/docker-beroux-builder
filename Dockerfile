@@ -1,13 +1,13 @@
 FROM docker
 
 # https://github.com/sgerrand/alpine-pkg-glibc
-ARG ALPINE_GLIBC_VERSION=2.32-r0
+ARG ALPINE_GLIBC_VERSION=2.35-r0
 # https://github.com/docker/compose/releases/latest
-ARG DOCKER_COMPOSE_VERSION=1.28.2
+ARG DOCKER_COMPOSE_VERSION=v2.12.2
 # https://dl.k8s.io/release/stable.txt
-ARG KUBECTL_VERSION=v1.20.2
+ARG KUBECTL_VERSION=v1.25.3
 # https://github.com/helm/helm/releases
-ARG HELM_VERSION=v3.5.1
+ARG HELM_VERSION=v3.10.1
 
 # Install TLS certificats, and curl (always useful).
 RUN apk add --no-cache ca-certificates curl zlib libgcc
@@ -31,7 +31,7 @@ RUN set -x && \
     #    | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
     #    | sed 's/^href="//' \
     #    | head -n1) && \
-    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-Linux-x86_64" && \
+    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" && \
     wget -O /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
     chmod a+rx /usr/local/bin/docker-compose && \
     docker-compose version
