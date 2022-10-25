@@ -51,5 +51,10 @@ For this to work, you need:
 
 # Pushing new releases
 
-    docker build -t wernight/beroux-builder .
-    docker push wernight/beroux-builder
+    docker compose build --pull
+    docker compose push
+
+    VERSION=X.X.X
+    git tag v$VERSION
+    docker tag wernight/beroux-builder wernight/beroux-builder:${VERSION}
+    docker push wernight/beroux-builder:${VERSION}
