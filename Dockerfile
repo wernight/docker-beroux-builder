@@ -1,40 +1,15 @@
 FROM docker
 
-# https://github.com/sgerrand/alpine-pkg-glibc
-ARG ALPINE_GLIBC_VERSION=2.35-r0
-# https://github.com/docker/compose/releases/latest
-ARG DOCKER_COMPOSE_VERSION=v2.12.2
 # https://dl.k8s.io/release/stable.txt
-ARG KUBECTL_VERSION=v1.25.3
+ARG KUBECTL_VERSION=v1.26.3
 # https://github.com/helm/helm/releases
-ARG HELM_VERSION=v3.10.1
+ARG HELM_VERSION=v3.11.2
 
-# Install TLS certificats, and curl (always useful).
-RUN apk add --no-cache ca-certificates curl zlib libgcc
-
-RUN set -x && \
-    # Install glibc on Alpine (required by docker-compose) from
-    # https://github.com/sgerrand/alpine-pkg-glibc
-    # See also https://github.com/gliderlabs/docker-alpine/issues/11
-    curl -Lo /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub && \
-    curl -Lo /tmp/glibc.apk https://github.com/sgerrand/alpine-pkg-glibc/releases/download/${ALPINE_GLIBC_VERSION}/glibc-${ALPINE_GLIBC_VERSION}.apk && \
-    apk add --no-cache /tmp/glibc.apk && \
-    rm /tmp/glibc.apk
+# Install TLS certificats, and curl + bash (always useful).
+RUN apk add --no-cache ca-certificates curl zlib libgcc bash
 
 # Required for docker-compose to find zlib.
 ENV LD_LIBRARY_PATH=/lib:/usr/lib
-
-# Install docker-compose
-# https://docs.docker.com/compose/install/
-RUN set -x && \
-    #DOCKER_COMPOSE_URL=https://github.com$(wget -q -O- https://github.com/docker/compose/releases/latest \
-    #    | grep -Eo 'href="[^"]+docker-compose-Linux-x86_64' \
-    #    | sed 's/^href="//' \
-    #    | head -n1) && \
-    DOCKER_COMPOSE_URL="https://github.com/docker/compose/releases/download/${DOCKER_COMPOSE_VERSION}/docker-compose-linux-x86_64" && \
-    wget -O /usr/local/bin/docker-compose $DOCKER_COMPOSE_URL && \
-    chmod a+rx /usr/local/bin/docker-compose && \
-    docker-compose version
 
 # Install kubectl
 # https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-via-curl
