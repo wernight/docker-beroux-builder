@@ -12,4 +12,6 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag beroux-builder:latest
+      run: docker compose build
+    - name: Test
+      run: docker compose run --rm builder -- helm --version

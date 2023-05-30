@@ -43,4 +43,4 @@ ENV PATH="${PATH:-/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin}"
 WORKDIR /code
 
 COPY beroux-entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["/usr/sh", "-e", "/usr/local/bin/beroux-entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "-e", "/usr/local/bin/beroux-entrypoint.sh"]
