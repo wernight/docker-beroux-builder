@@ -1,9 +1,9 @@
 FROM docker
 
 # https://dl.k8s.io/release/stable.txt
-ARG KUBECTL_VERSION=v1.27.2
+ARG KUBECTL_VERSION=v1.29.1
 # https://github.com/helm/helm/releases
-ARG HELM_VERSION=v3.12.0
+ARG HELM_VERSION=v3.14.0
 
 # Install TLS certificats, and curl + bash (always useful).
 RUN apk add --no-cache ca-certificates curl zlib libgcc bash
