@@ -28,20 +28,22 @@ You should provide a Docker daemon either:
 
 For example you can run GitLab CI with a `.gitlab-ci.yml` like:
 
-    build:
-      stage: build
-      image: wernight/beroux-builder
-      services:
-        - docker:dind
-      before_script:
-        - docker info
-        - docker-compose version
-        - docker login -u _json_key -p "$DOCKER_REGISTRY_TOKEN" https://eu.gcr.io
-        - kubectl cluster-info
-      script:
-        - docker-compose build --pull
-        - docker push my-repo/my-image
-        - cat kubernetes.yml | envsubst | kubectl apply -f -
+```yaml
+build:
+  stage: build
+  image: wernight/beroux-builder
+  services:
+    - docker:dind
+  before_script:
+    - docker info
+    - docker-compose version
+    - docker login -u _json_key -p "$DOCKER_REGISTRY_TOKEN" https://eu.gcr.io
+    - kubectl cluster-info
+  script:
+    - docker-compose build --pull
+    - docker push my-repo/my-image
+    - cat kubernetes.yml | envsubst | kubectl apply -f -
+```
 
 For this to work, you need:
 
@@ -51,10 +53,12 @@ For this to work, you need:
 
 # Pushing new releases
 
-    docker compose build --pull
-    docker compose push
+```bash
+docker compose build --pull
+docker compose push
 
-    VERSION=X.X.X
-    git tag v$VERSION
-    docker tag wernight/beroux-builder wernight/beroux-builder:${VERSION}
-    docker push wernight/beroux-builder:${VERSION}
+VERSION=X.X.X
+git tag v$VERSION
+docker tag wernight/beroux-builder wernight/beroux-builder:${VERSION}
+docker push wernight/beroux-builder:${VERSION}
+```

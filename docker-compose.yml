@@ -3,4 +3,4 @@ version: '3'
 services:
   builder:
     build: .
-    image: wernight/beroux-builder
+    image: docker.io/wernight/beroux-builder
